@@ -92,8 +92,8 @@ class exports.StatusBar
 			x: Align.right
 			height: @statusBarLayer.height
 			backgroundColor: null
-		battery_icon = new SVGLayer
-			name : "battery_icon"
+		batteryIcon = new SVGLayer
+			name : "batteryIcon"
 			parent: battery
 			svg: iosBatterySVG
 			fill: "white"
@@ -103,6 +103,7 @@ class exports.StatusBar
 			y: Align.center
 
 		batteryPercent = new TextLayer
+			name: "batteryPercent"
 			parent : battery
 			text: "100%"
 			fontSize: 12
@@ -110,16 +111,18 @@ class exports.StatusBar
 			fontWeight: 500
 			fontFamily: "-apple-system"
 			color: "white"
-			x: Align.right(-battery_icon.width - 10)
+			x: Align.right(-batteryIcon.width - 10)
 			y: Align.center
 
 		statusIcons = new Layer
+			name: "statusIcons"
 			parent: @statusBarLayer
 			x: Align.left
 			height: @statusBarLayer.height
 			backgroundColor: null
 
-		signal = new SVGLayer
+		signalIcon = new SVGLayer
+			name: "signalIcon"
 			parent: statusIcons
 			svg: iosSignalSVG
 			fill: "white"
@@ -128,27 +131,28 @@ class exports.StatusBar
 			y: Align.center
 			x: 7
 
-		wifi = new SVGLayer
+		wifiIcon = new SVGLayer
+			name: "wifiIcon"
 			parent: statusIcons
 			svg: iosWifiSVG
 			fill: "white"
 			width: 14
 			height: 10
 			y: Align.center
-			x: signal.x + signal.width + 3
+			x: signalIcon.x + signalIcon.width + 3
 
 		if @options.style == "light"
 			hour.color = "white"
-			battery_icon.fill = "white"
+			batteryIcon.fill = "white"
 			batteryPercent.color = "white"
-			wifi.fill = "white"
-			signal.fill = "white"
+			wifiIcon.fill = "white"
+			signalIcon.fill = "white"
 		else
 			hour.color = "black"
-			battery_icon.fill = "black"
+			batteryIcon.fill = "black"
 			batteryPercent.color = "black"
-			wifi.fill = "black"
-			signal.fill = "black"
+			wifiIcon.fill = "black"
+			signalIcon.fill = "black"
 
 	iPhoneXStatusbar : () ->
 		@statusBarLayer.props =
@@ -158,6 +162,7 @@ class exports.StatusBar
 			height: 44
 			parent: null
 		hourFrame = new Layer
+			name: "hourFrame"
 			parent: @statusBarLayer
 			height: 16
 			width: 54
@@ -166,6 +171,7 @@ class exports.StatusBar
 			backgroundColor: null
 
 		hour = new TextLayer
+			name: "hour"
 			parent : hourFrame
 			text: "9:41"
 			fontSize: 14
@@ -178,12 +184,14 @@ class exports.StatusBar
 			y: Align.center
 
 		statusIcons = new Layer
+			name: "statusIcons"
 			parent: @statusBarLayer
 			x: Align.right
 			height: @statusBarLayer.height
 			backgroundColor: null
 
-		battery_icon = new SVGLayer
+		batteryIcon = new SVGLayer
+			name: "batteryIcon"
 			parent: statusIcons
 			svg: iosBatterySVG
 			fill: "white"
@@ -192,34 +200,36 @@ class exports.StatusBar
 			x: Align.right(-12)
 			y: Align.center
 
-		wifi = new SVGLayer
+		wifiIcon = new SVGLayer
+			name: "wifiIcon"
 			parent: statusIcons
 			svg: iosWifiSVG
 			fill: "white"
 			width: 15
 			height: 10
-			x: Align.right(-battery_icon.width - 12 - 5)
+			x: Align.right(-batteryIcon.width - 12 - 5)
 			y: Align.center
 
-		signal = new SVGLayer
+		signalIcon = new SVGLayer
+			name: "signalIcon"
 			parent: statusIcons
 			svg: iosSignalSVG
 			fill: "white"
 			width: 17
 			height: 10
-			x: Align.right(-battery_icon.width - 12 - 5 - wifi.width - 5)
+			x: Align.right(-batteryIcon.width - 12 - 5 - wifiIcon.width - 5)
 			y: Align.center
 
 		if @options.style == "light"
 			hour.color = "white"
-			battery_icon.fill = "white"
-			wifi.fill = "white"
-			signal.fill = "white"
+			batteryIcon.fill = "white"
+			wifiIcon.fill = "white"
+			signalIcon.fill = "white"
 		else
 			hour.color = "black"
-			battery_icon.fill = "black"
-			wifi.fill = "black"
-			signal.fill = "black"
+			batteryIcon.fill = "black"
+			wifiIcon.fill = "black"
+			signalIcon.fill = "black"
 
 
 	androidStatusbar : () ->
@@ -231,6 +241,7 @@ class exports.StatusBar
 			parent: null
 
 		hour = new TextLayer
+			name: "hour"
 			parent : @statusBarLayer
 			text: "12:30"
 			fontSize: 14
@@ -241,7 +252,8 @@ class exports.StatusBar
 			x: Align.right(-8)
 			y: Align.center
 
-		battery_icon = new SVGLayer
+		batteryIcon = new SVGLayer
+			name: "batteryIcon"
 			parent: @statusBarLayer
 			svg: androidBatterySVG
 			fill: "white"
@@ -250,34 +262,36 @@ class exports.StatusBar
 			x: Align.right(-hour.width - 8 - 7)
 			y: Align.center
 
-		signal = new SVGLayer
+		signalIcon = new SVGLayer
+			name: "signalIcon"
 			parent: @statusBarLayer
 			svg: androidSignalSVG
 			fill: "white"
 			width: 14
 			height: 14
-			x: Align.right(-hour.width - 8 - battery_icon.width - 7 - 9)
+			x: Align.right(-hour.width - 8 - batteryIcon.width - 7 - 9)
 			y: Align.center
 
-		wifi = new SVGLayer
+		wifiIcon = new SVGLayer
+			name: "wifiIcon"
 			parent: @statusBarLayer
 			svg: androidWifiSVG
 			fill: "white"
 			width: 18
 			height: 14
-			x: Align.right(-hour.width - 8 - battery_icon.width - 7 - 9 - signal.width - 2)
+			x: Align.right(-hour.width - 8 - batteryIcon.width - 7 - 9 - signalIcon.width - 2)
 			y: Align.center
 
 		if @options.style == "light"
 			hour.color = "white"
-			battery_icon.fill = "white"
-			wifi.fill = "white"
-			signal.fill = "white"
+			batteryIcon.fill = "white"
+			wifiIcon.fill = "white"
+			signalIcon.fill = "white"
 		else
 			hour.color = "black"
-			battery_icon.fill = "black"
-			wifi.fill = "black"
-			signal.fill = "black"
+			batteryIcon.fill = "black"
+			wifiIcon.fill = "black"
+			signalIcon.fill = "black"
 
 
 	hide : () ->
