@@ -64,8 +64,14 @@ class exports.StatusBar
 			backgroundColor: @options.backgroundColor
 			parent: null
 
+
+
 		#Update at creation
-		@changeStatusBar(getMobileType())
+		if @options.os
+			@changeStatusBar(@options.os)
+		else
+			@changeStatusBar(getMobileType())
+
 	changeStatusBar : (phone) ->
 		switch phone
 			when "classic-iphone" then this.iPhoneStatusBar()
@@ -313,3 +319,6 @@ class exports.StatusBar
 	destroyStatusbar : () ->
 		@destroyLayersInStatusBar()
 		@statusBarLayer.destroy()
+
+	getHeight : () ->
+		return @statusBarLayer.height
