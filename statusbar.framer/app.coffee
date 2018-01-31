@@ -2,21 +2,32 @@
 
 getMobileOperatingSystem = () ->
 	userAgent = navigator.userAgent || navigator.vendor || window.opera
-	if (/android/i.test(userAgent)) || Framer.Device.deviceType.search("google") >= 0 || Framer.Device.deviceType.search("htc") >= 0 || Framer.Device.deviceType.search("samsung") >= 0
-		return "Android"
-	if ((/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream)) || (Framer.Device.deviceType.search("apple") >= 0)
-		return "iOS"
-	return "unknown"
+	if Utils.isMobile()
+		if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream)
+			return "iOS"
+		if (/android/i.test(userAgent)) || (Framer.Device.deviceType.search("google") >= 0)
+			return "Android"
+		return "unknown"
+	else
+		if (Framer.Device.deviceType.search("apple-iphone") >= 0) || (Framer.Device.deviceType.search("apple-ipad") >= 0)
+			return "iOS"
+		if (Framer.Device.deviceType.search("google") >= 0) || (Framer.Device.deviceType.search("htc") >= 0) || (Framer.Device.deviceType.search("samsung") >= 0)
+			return "Android"
+		return "unknown"
+
 
 
 getMobileType = () ->
 	switch getMobileOperatingSystem()
 		when "iOS"
-			if (Screen.height == 812) || (Framer.Device.deviceType.search("apple-iphone-x") >= 0)
+			if Framer.Device.orientationName = "portrait" && Screen.height == 812
 				return "iphone-x"
+			if Framer.Device.orientationName = "landscsape" && Screen.width == 812
+				return "unknown"
 			else
 				return "classic-iphone"
 		when "Android" then return "android"
+		when "unknown" then return "unknown"
 
 #SVG shit
 iosSignalSVG = "<svg><path d='M1,5.5 L2,5.5 C2.55228475,5.5 3,5.94771525 3,6.5 L3,9 C3,9.55228475 2.55228475,10 2,10 L1,10 C0.44771525,10 6.76353751e-17,9.55228475 0,9 L0,6.5 C-6.76353751e-17,5.94771525 0.44771525,5.5 1,5.5 Z M5.5,4 L6.5,4 C7.05228475,4 7.5,4.44771525 7.5,5 L7.5,9 C7.5,9.55228475 7.05228475,10 6.5,10 L5.5,10 C4.94771525,10 4.5,9.55228475 4.5,9 L4.5,5 C4.5,4.44771525 4.94771525,4 5.5,4 Z M10,2 L11,2 C11.5522847,2 12,2.44771525 12,3 L12,9 C12,9.55228475 11.5522847,10 11,10 L10,10 C9.44771525,10 9,9.55228475 9,9 L9,3 C9,2.44771525 9.44771525,2 10,2 Z M14.5,0 L15.5,0 C16.0522847,-1.01453063e-16 16.5,0.44771525 16.5,1 L16.5,9 C16.5,9.55228475 16.0522847,10 15.5,10 L14.5,10 C13.9477153,10 13.5,9.55228475 13.5,9 L13.5,1 C13.5,0.44771525 13.9477153,1.01453063e-16 14.5,0 Z'></path></svg>"
@@ -50,8 +61,9 @@ class StatusBar
 			y: 0
 			midX: Screen.midX
 			width: Screen.width
-			backgroundColor: null
+			backgroundColor: @options.backgroundColor
 			parent: null
+		
 		#Update at creation	
 		@changeStatusBar(getMobileType())		
 	changeStatusBar : (phone) ->
@@ -59,6 +71,7 @@ class StatusBar
 			when "classic-iphone" then this.iPhoneStatusBar()
 			when "iphone-x" then this.iPhoneXStatusbar()
 			when "android" then this.androidStatusbar()
+			when "unknown" then this.destroyStatusbar()
 	iPhoneStatusBar : () ->
 		@statusBarLayer.props = 
 			height : 20
@@ -70,9 +83,9 @@ class StatusBar
 			textAlign: "center"
 			fontWeight: 600
 			fontFamily: "-apple-system"
-			color: "white"
 			x: Align.center
 			y: Align.center
+		
 		battery = new Layer
 			name : "battery"
 			parent: @statusBarLayer
@@ -123,13 +136,26 @@ class StatusBar
 			height: 10
 			y: Align.center
 			x: signal.x + signal.width + 3	
+			
+		if @options.style == "light"
+			hour.color = "white"
+			battery_icon.fill = "white"
+			batteryPercent.color = "white"
+			wifi.fill = "white"
+			signal.fill = "white"
+		else
+			hour.color = "black"
+			battery_icon.fill = "black"
+			batteryPercent.color = "black"
+			wifi.fill = "black"
+			signal.fill = "black"
+	
 	iPhoneXStatusbar : () ->
 		@statusBarLayer.props =
 			y: 0
 			midX: Screen.midX
 			width: Screen.width
 			height: 44
-			backgroundColor: null
 			parent: null
 		hourFrame = new Layer
 			parent: @statusBarLayer
@@ -183,13 +209,25 @@ class StatusBar
 			height: 10
 			x: Align.right(-battery_icon.width - 12 - 5 - wifi.width - 5)
 			y: Align.center
+	
+		if @options.style == "light"
+			hour.color = "white"
+			battery_icon.fill = "white"
+			wifi.fill = "white"
+			signal.fill = "white"
+		else
+			hour.color = "black"
+			battery_icon.fill = "black"
+			wifi.fill = "black"
+			signal.fill = "black"
+	
+	
 	androidStatusbar : () ->
 		@statusBarLayer.props =
 			y: 0
 			midX: Screen.midX
 			width: Screen.width
 			height: 24
-			backgroundColor: null
 			parent: null
 		
 		hour = new TextLayer
@@ -229,6 +267,19 @@ class StatusBar
 			height: 14
 			x: Align.right(-hour.width - 8 - battery_icon.width - 7 - 9 - signal.width - 2)
 			y: Align.center
+		
+		if @options.style == "light"
+			hour.color = "white"
+			battery_icon.fill = "white"
+			wifi.fill = "white"
+			signal.fill = "white"
+		else
+			hour.color = "black"
+			battery_icon.fill = "black"
+			wifi.fill = "black"
+			signal.fill = "black"
+		
+			
 	hide : () ->
 		@statusBarLayer.animate
 			y: -@statusBarLayer.height
@@ -241,20 +292,20 @@ class StatusBar
 			options: 
 				time: .4
 				curve: Bezier.ease
-	light : () ->
-		@statusBarLayer.invert = 0
-	dark : () ->
-		@statusBarLayer.invert = 100	
+	
 	destroyLayersInStatusBar : () ->
 		for child in getAllChildrenOfLayer(@statusBarLayer)
 			child.destroy()
-	destroy : () ->	
+	destroyStatusbar : () ->	
 		@destroyLayersInStatusBar()
 		@statusBarLayer.destroy()
 	
 	
 	
-	statusbar = new StatusBar
-	statusbar.dark()
-	Screen.backgroundColor = "#FFF"
-		
+statusbar = new StatusBar
+	backgroundColor: "rgba(0,0,0,.2)"
+	style: "light"
+
+Screen.backgroundColor = "#12659F"
+	
+	
