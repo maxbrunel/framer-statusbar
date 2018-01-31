@@ -2,11 +2,11 @@
   "orientation" : 0,
   "updateDelay" : 0.29999999999999999,
   "designModeSelected" : 0,
-  "cachedDeviceHeight" : 640,
+  "cachedDeviceHeight" : 812,
   "contentScale" : 1,
   "fullScreen" : false,
-  "cachedDeviceWidth" : 360,
-  "deviceType" : "microsoft-lumia-950-black",
+  "cachedDeviceWidth" : 375,
+  "deviceType" : "apple-iphone-x-space-gray",
   "sharedPrototype" : true,
   "propertyPanelToggleStates" : {
 
@@ -16,8 +16,7 @@
   "selectedHand" : "",
   "showBezel" : true,
   "foldedCodeRanges" : [
-    "{0, 1056}",
-    "{1057, 3759}"
+
   ],
   "deviceScale" : "fit"
 }
