@@ -2,7 +2,7 @@
 
 This module automatically adds the emulated device's statusbar & changes depending on the device you are viewing on.
 
-## Install
+## :zap: Install
 
 <!-- <a href='https://open.framermodules.com/Dynamic Statusbar'>
     <img alt='Install with Framer Modules'
@@ -14,13 +14,17 @@ or -->
 - Call `{StatusBar} = require "framer-statusbar"` in your Framer prototype.
 - Create a statusbar layer by writting `yourLayer = new StatusBar`
 
-## Events
-**.style** (String) Define statusbar style (dark/light)  
-**.backgroundColor** (String) Select background color. Default is transparent.  
-**.device** (String) Force device statusbar (classic-iphone/iphone-x/android)  
-**.height** (Read only) Get the statusbar height value  
+## :hammer: Events
+- ``.style`` (String) Define statusbar style (dark/light)  
+- ``.backgroundColor`` (String) Select background color. Default is transparent.  
+- ``.device`` (String) Force device statusbar (classic-iphone/iphone-x/android)  
+- ``.height`` (Read only) Get the statusbar height value  
 
-### Contact
+## :sparkles: Functions
+- ``.hide()`` Hide the statusbar with animation
+- ``.show()`` Show the statusbar with animation
+
+### :love_letter: Contact
 [Twitter](https://twitter.com/revealparis)  
 [Instagram](https://www.instagram.com/revealparis)  
 [Dribbble](https://dribbble.com/revealstudio)  
