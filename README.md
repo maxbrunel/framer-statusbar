@@ -4,11 +4,11 @@ This module automatically adds the emulated device's statusbar & changes dependi
 
 ## Install
 
-<a href='https://open.framermodules.com/Dynamic Statusbar'>
+<!-- <a href='https://open.framermodules.com/Dynamic Statusbar'>
     <img alt='Install with Framer Modules'
     src='https://www.framermodules.com/assets/badge@2x.png' width='160' height='40' /></a>
 
-or
+or -->
 
 - Copy the `framer-statusbar.coffee` file to your prototype's `modules` folder.
 - Call `{StatusBar} = require "framer-statusbar"` in your Framer prototype.
