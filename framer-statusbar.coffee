@@ -67,8 +67,8 @@ class exports.StatusBar
 			parent: null
 
 		#Update at creation
-		if @options.os
-			@changeStatusBar(@options.os)
+		if @options.device
+			@changeStatusBar(@options.device)
 		else
 			@changeStatusBar(getMobileType())
 
