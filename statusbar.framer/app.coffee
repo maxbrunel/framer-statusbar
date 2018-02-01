@@ -3,6 +3,6 @@
 Screen.backgroundColor = "black"
 	
 statusbar = new StatusBar
-	backgroundColor: "#000"
 	style: "light"
+# 	backgroundColor: "#000"
 # 	os: "android" "classic-iphone" "iphone-x"

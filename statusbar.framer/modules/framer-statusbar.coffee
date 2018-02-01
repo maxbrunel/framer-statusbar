@@ -1,5 +1,7 @@
 # Device detection
 
+heightValue = ""
+
 getMobileOperatingSystem = () ->
 	userAgent = navigator.userAgent || navigator.vendor || window.opera
 	if Utils.isMobile()
@@ -64,8 +66,6 @@ class exports.StatusBar
 			backgroundColor: @options.backgroundColor
 			parent: null
 
-
-
 		#Update at creation
 		if @options.os
 			@changeStatusBar(@options.os)
@@ -78,9 +78,11 @@ class exports.StatusBar
 			when "iphone-x" then this.iPhoneXStatusbar()
 			when "android" then this.androidStatusbar()
 			when "unknown" then this.destroyStatusbar()
+		return @height = heightValue
 	iPhoneStatusBar : () ->
+		heightValue = 20
 		@statusBarLayer.props =
-			height : 20
+			height : heightValue
 		hour = new TextLayer
 			name: "hour"
 			parent : @statusBarLayer
@@ -161,11 +163,12 @@ class exports.StatusBar
 			signalIcon.fill = "black"
 
 	iPhoneXStatusbar : () ->
+		heightValue = 44
 		@statusBarLayer.props =
 			y: 0
 			midX: Screen.midX
 			width: Screen.width
-			height: 44
+			height: heightValue
 			parent: null
 		hourFrame = new Layer
 			name: "hourFrame"
@@ -239,11 +242,12 @@ class exports.StatusBar
 
 
 	androidStatusbar : () ->
+		heightValue = 24
 		@statusBarLayer.props =
 			y: 0
 			midX: Screen.midX
 			width: Screen.width
-			height: 24
+			height: heightValue
 			parent: null
 
 		hour = new TextLayer
@@ -299,7 +303,6 @@ class exports.StatusBar
 			wifiIcon.fill = "black"
 			signalIcon.fill = "black"
 
-
 	hide : () ->
 		@statusBarLayer.animate
 			y: -@statusBarLayer.height
@@ -319,6 +322,3 @@ class exports.StatusBar
 	destroyStatusbar : () ->
 		@destroyLayersInStatusBar()
 		@statusBarLayer.destroy()
-
-	getHeight : () ->
-		return @statusBarLayer.height
