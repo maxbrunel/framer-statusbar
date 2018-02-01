@@ -15,12 +15,12 @@ or -->
 - Create a statusbar layer by writting `yourLayer = new StatusBar`
 
 ## Events
-- **.style** (String) Define statusbar style (dark/light)
-- **.backgroundColor** (String) Select background color. Default is transparent.
-- **.device** (String) Force device statusbar (classic-iphone/iphone-x/android)
-- **.height** (Read only) Get the statusbar height value
+**.style** (String) Define statusbar style (dark/light)  
+**.backgroundColor** (String) Select background color. Default is transparent.  
+**.device** (String) Force device statusbar (classic-iphone/iphone-x/android)  
+**.height** (Read only) Get the statusbar height value  
 
 ### Contact
-[Twitter](https://twitter.com/revealparis)
-[Instagram](https://www.instagram.com/revealparis)
-[Dribbble](https://dribbble.com/revealstudio)
+[Twitter](https://twitter.com/revealparis)  
+[Instagram](https://www.instagram.com/revealparis)  
+[Dribbble](https://dribbble.com/revealstudio)  
