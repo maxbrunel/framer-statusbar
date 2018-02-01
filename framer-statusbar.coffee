@@ -1,6 +1,6 @@
 # Device detection
 
-heightValue = ""
+heightValue = 0
 
 getMobileOperatingSystem = () ->
 	userAgent = navigator.userAgent || navigator.vendor || window.opera
@@ -79,6 +79,7 @@ class exports.StatusBar
 			when "android" then this.androidStatusbar()
 			when "unknown" then this.destroyStatusbar()
 		return @height = heightValue
+
 	iPhoneStatusBar : () ->
 		heightValue = 20
 		@statusBarLayer.props =
@@ -90,7 +91,7 @@ class exports.StatusBar
 			fontSize: 12
 			textAlign: "center"
 			fontWeight: 600
-			fontFamily: "-apple-system"
+			fontFamily: "'-apple-system', 'SF Pro Text', sans-serif"
 			x: Align.center
 			y: Align.center
 
@@ -117,7 +118,7 @@ class exports.StatusBar
 			fontSize: 12
 			textAlign: "center"
 			fontWeight: 500
-			fontFamily: "-apple-system"
+			fontFamily: "'-apple-system', 'SF Pro Text', sans-serif"
 			color: "white"
 			x: Align.right(-batteryIcon.width - 10)
 			y: Align.center
@@ -164,6 +165,7 @@ class exports.StatusBar
 
 	iPhoneXStatusbar : () ->
 		heightValue = 44
+
 		@statusBarLayer.props =
 			y: 0
 			midX: Screen.midX
@@ -187,7 +189,7 @@ class exports.StatusBar
 			letterSpacing: -0.28
 			textAlign: "center"
 			fontWeight: 600
-			fontFamily: "-apple-system"
+			fontFamily: "'-apple-system', 'SF Pro Text', sans-serif"
 			color: "white"
 			x: Align.center
 			y: Align.center
@@ -239,7 +241,6 @@ class exports.StatusBar
 			batteryIcon.fill = "black"
 			wifiIcon.fill = "black"
 			signalIcon.fill = "black"
-
 
 	androidStatusbar : () ->
 		heightValue = 24
