@@ -55,8 +55,13 @@ getAllChildrenOfLayer = (layer, mem = []) ->
 	return allChildren
 
 #Status Bar Class
-class exports.StatusBar
+class exports.StatusBar extends Layer
 	constructor : (@options = {}) ->
+		@options.backgroundColor ?= "transparent"
+		@options.height ?= 0
+		@options.style ?= "dark"
+		@options.parent ?= null
+		super(@options)
 		#Layers
 		@statusBarLayer = new Layer
 			name: "statusBarLayer"
@@ -64,8 +69,7 @@ class exports.StatusBar
 			midX: Screen.midX
 			width: Screen.width
 			backgroundColor: @options.backgroundColor
-			parent: null
-
+			parent: this
 		#Update at creation
 		if @options.device
 			@changeStatusBar(@options.device)

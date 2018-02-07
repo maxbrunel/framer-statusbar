@@ -1,6 +1,6 @@
 # Dynamic statusbar for Framer
 
-This module automatically adds the emulated device's statusbar & changes depending on the device you are viewing on.
+Emulate iOS, Android & iPhone X statusbars on your prototype.
 
 ## :zap: Install
 
